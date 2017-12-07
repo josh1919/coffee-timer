@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Coffee Timer</title>
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="item plus-minus add1">+</div>
+        <div class="item plus-minus add2">+</div>
+        <div class="item plus-minus add3">+</div>
+        <div class="item plus-minus add4">+</div>
+        <div class="item num num1"></div>
+        <div class="item num num2"></div>
+        <div class="item num num3"></div>
+        <div class="item num num4"></div>
+        <div class="item plus-minus sub1">-</div>
+        <div class="item plus-minus sub2">-</div>
+        <div class="item plus-minus sub3">-</div>
+        <div class="item plus-minus sub4">-</div>
+    </div>
+    <div class="countdown"></div>
+    <button class="start">Start</button>
+    <button class="reset">Reset</button>
+</body>
+
+<script>
+    let minsA = 0;
+    let minsB = 4;
+    let secsA = 3;
+    let secsB = 0;
+    const minA = document.querySelector('.num1');
+    const minB = document.querySelector('.num2');
+    const secA = document.querySelector('.num3');
+    const secB = document.querySelector('.num4');
+
+    minA.innerHTML = minsA;
+    minB.innerHTML = minsB;
+    secA.innerHTML = secsA;
+    secB.innerHTML = secsB;
+
+    document.querySelector('.add1').addEventListener('click', function () { minsA = countControl(minsA, "plus"); minA.textContent = minsA; });
+    document.querySelector('.add2').addEventListener('click', function () { minsB = countControl(minsB, "plus"); minB.textContent = minsB; });
+    document.querySelector('.add3').addEventListener('click', function () { secsA = countControl(secsA, "plus"); secA.textContent = secsA; });
+    document.querySelector('.add4').addEventListener('click', function () { secsB = countControl(secsB, "plus"); secB.textContent = secsB; });
+
+    document.querySelector('.sub1').addEventListener('click', function () { minsA = countControl(minsA, "subtract"); minA.textContent = minsA; });
+    document.querySelector('.sub2').addEventListener('click', function () { minsB = countControl(minsB, "subtract"); minB.textContent = minsB; });
+    document.querySelector('.sub3').addEventListener('click', function () { secsA = countControl(secsA, "subtract"); secA.textContent = secsA; });
+    document.querySelector('.sub4').addEventListener('click', function () { secsB = countControl(secsB, "subtract"); secB.textContent = secsB; });
+    document.querySelector('.start').addEventListener('click', startTimer);
+    let countdown = document.querySelector('.countdown');
+
+    function countControl(sent, operation) {
+        if (operation === "plus") {
+            sent++;
+            if (sent > 9) {
+                sent = 0;
+            }
+            return sent;
+        } else if(operation = "subtract") {
+            sent--;
+            if(sent < 0){
+                sent = 9;
+            }
+            return sent;
+        }
+        return "Error in count control"
+    }
+
+    document.querySelector('.reset').addEventListener('click', reset);
+
+    function startTimer() {
+        let minsLeft = (minsA * 10) + minsB;
+        let secsLeft = (secsA * 10) + secsB;
+        let timeLeft = minsLeft * 60 + secsLeft;
+
+        myCountdown = setInterval(() => {
+            if (timeLeft < 1) {
+                clearInterval(myCountdown)
+            }
+            countdown.textContent = timeLeft;
+            timeLeft--;
+        }, 1000)
+
+    }
+
+    function reset() {
+        clearInterval(myCountdown);
+        timeLeft = 0;
+        countdown.textContent = '';
+    }
+
+</script>
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: 100px 100px 100px 100px;
+        grid-template-rows: 50px 200px 50px;
+        grid-gap: 10px;
+        background-color: #C8C6C6;
+
+    }
+
+    .item {
+        background-color: #444;
+        color: #fff;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .num {
+        font-size: 200px;
+    }
+
+    .plus-minus {
+        font-size: 250%;
+    }
+</style>
+
+</html>
