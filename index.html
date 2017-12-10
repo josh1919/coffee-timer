@@ -49,7 +49,10 @@
     document.querySelector('.sub2').addEventListener('click', function () { minsB = countControl(minsB, "subtract"); minB.textContent = minsB; });
     document.querySelector('.sub3').addEventListener('click', function () { secsA = countControl(secsA, "subtract"); secA.textContent = secsA; });
     document.querySelector('.sub4').addEventListener('click', function () { secsB = countControl(secsB, "subtract"); secB.textContent = secsB; });
+
     document.querySelector('.start').addEventListener('click', startTimer);
+    document.querySelector('.reset').addEventListener('click', reset);
+
     let countdown = document.querySelector('.countdown');
 
     function countControl(sent, operation) {
@@ -59,9 +62,9 @@
                 sent = 0;
             }
             return sent;
-        } else if(operation = "subtract") {
+        } else if (operation = "subtract") {
             sent--;
-            if(sent < 0){
+            if (sent < 0) {
                 sent = 9;
             }
             return sent;
@@ -69,7 +72,7 @@
         return "Error in count control"
     }
 
-    document.querySelector('.reset').addEventListener('click', reset);
+
 
     function startTimer() {
         let minsLeft = (minsA * 10) + minsB;
@@ -80,7 +83,20 @@
             if (timeLeft < 1) {
                 clearInterval(myCountdown)
             }
-            countdown.textContent = timeLeft;
+            let countBuilder = "";
+            if(timeLeft / 60 < 1) {
+                countBuilder = "00";
+            }
+            if(timeLeft/60 < 10){
+                countBuilder = "0";
+            }
+            if (timeLeft % 60 < 10) {
+                countBuilder += (Math.floor(timeLeft / 60)) + ":" + "0" + (timeLeft % 60);
+            } else {
+                countBuilder += (Math.floor(timeLeft / 60)) + ":" + (timeLeft % 60);
+            }
+
+            countdown.textContent = countBuilder;
             timeLeft--;
         }, 1000)
 
