@@ -42,7 +42,7 @@
     secA.innerHTML = secsA;
     secB.innerHTML = secsB;
 
-    document.querySelector('.add1').addEventListener('click', function () { minsA = countControl(minsA, "plus"); minA.textContent = minsA; });
+    document.querySelector('.add1').addEventListener('click', function () { minsA = countControl(minsA, "plus", true); minA.textContent = minsA; });
     document.querySelector('.add2').addEventListener('click', function () { minsB = countControl(minsB, "plus"); minB.textContent = minsB; });
     document.querySelector('.add3').addEventListener('click', function () { secsA = countControl(secsA, "plus"); secA.textContent = secsA; });
     document.querySelector('.add4').addEventListener('click', function () { secsB = countControl(secsB, "plus"); secB.textContent = secsB; });
@@ -55,12 +55,10 @@
     document.querySelector('.start').addEventListener('click', function () { startTimer('createTimer') });
     document.querySelector('.reset').addEventListener('click', function () { startTimer('resetTimer') });
 
-    const myTest = document.querySelector('.test')
-
-    function countControl(sent, operation) {
+    function countControl(sent, operation, toSix) {
         if (operation === "plus") {
             sent++;
-            if (sent > 9) {
+            if (sent > 9 || toSix && sent > 5) {
                 sent = 0;
             }
             return sent;
@@ -115,7 +113,6 @@
             }, 2000)
         }
     }
-    //TODO: first number(minutes) should only go up to 5
 
 </script>
 
