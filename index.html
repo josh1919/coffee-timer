@@ -47,7 +47,7 @@
     document.querySelector('.add3').addEventListener('click', function () { secsA = countControl(secsA, "plus"); secA.textContent = secsA; });
     document.querySelector('.add4').addEventListener('click', function () { secsB = countControl(secsB, "plus"); secB.textContent = secsB; });
 
-    document.querySelector('.sub1').addEventListener('click', function () { minsA = countControl(minsA, "subtract"); minA.textContent = minsA; });
+    document.querySelector('.sub1').addEventListener('click', function () { minsA = countControl(minsA, "subtract", true); minA.textContent = minsA; });
     document.querySelector('.sub2').addEventListener('click', function () { minsB = countControl(minsB, "subtract"); minB.textContent = minsB; });
     document.querySelector('.sub3').addEventListener('click', function () { secsA = countControl(secsA, "subtract"); secA.textContent = secsA; });
     document.querySelector('.sub4').addEventListener('click', function () { secsB = countControl(secsB, "subtract"); secB.textContent = secsB; });
@@ -55,10 +55,10 @@
     document.querySelector('.start').addEventListener('click', function () { startTimer('createTimer') });
     document.querySelector('.reset').addEventListener('click', function () { startTimer('resetTimer') });
 
-    function countControl(sent, operation, toSix) {
+    function countControl(sent, operation, badOverflow) {
         if (operation === "plus") {
             sent++;
-            if (sent > 9 || toSix && sent > 5) {
+            if (sent > 9 || (badOverflow && sent > 5)) {
                 sent = 0;
             }
             return sent;
@@ -66,6 +66,9 @@
             sent--;
             if (sent < 0) {
                 sent = 9;
+            } if(badOverflow && sent>5){
+                sent=5;
+                
             }
             return sent;
         }
