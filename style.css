@@ -1,0 +1,40 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px;
+    grid-template-rows: 50px 200px 50px;
+    grid-gap: 10px;
+    background-color: #C8C6C6;
+}
+
+.item {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.num {
+    font-size: 200px;
+}
+
+.plus-minus {
+    font-size: 250%;
+}
+
+.countdown {
+    position: absolute;
+    background-color: blue;
+    font-size: 180px;
+    height: 320px;
+    width: 447px;
+    font-family: 'Arial';
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1s;
+}
+
+.countdown-on {
+    opacity: 1;
+    visibility: visible;
+    transition: all 1s;
+}
