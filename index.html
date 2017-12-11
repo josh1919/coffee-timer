@@ -6,6 +6,7 @@
 </head>
 
 <body>
+    <div class="countdown"></div>
     <div class="grid-container">
         <div class="item plus-minus add1">+</div>
         <div class="item plus-minus add2">+</div>
@@ -20,7 +21,7 @@
         <div class="item plus-minus sub3">-</div>
         <div class="item plus-minus sub4">-</div>
     </div>
-    <div class="countdown"></div>
+
     <button class="start">Start</button>
     <button class="reset">Reset</button>
 </body>
@@ -34,6 +35,7 @@
     const minB = document.querySelector('.num2');
     const secA = document.querySelector('.num3');
     const secB = document.querySelector('.num4');
+    const countdown = document.querySelector('.countdown');
 
     minA.innerHTML = minsA;
     minB.innerHTML = minsB;
@@ -50,10 +52,10 @@
     document.querySelector('.sub3').addEventListener('click', function () { secsA = countControl(secsA, "subtract"); secA.textContent = secsA; });
     document.querySelector('.sub4').addEventListener('click', function () { secsB = countControl(secsB, "subtract"); secB.textContent = secsB; });
 
-    document.querySelector('.start').addEventListener('click', startTimer);
-    document.querySelector('.reset').addEventListener('click', reset);
+    document.querySelector('.start').addEventListener('click', function () { startTimer('createTimer') });
+    document.querySelector('.reset').addEventListener('click', function () { startTimer('resetTimer') });
 
-    let countdown = document.querySelector('.countdown');
+    const myTest = document.querySelector('.test')
 
     function countControl(sent, operation) {
         if (operation === "plus") {
@@ -73,40 +75,47 @@
     }
 
 
+    function startTimer(e) {
+        if (e === "createTimer") {
+            let minsLeft = (minsA * 10) + minsB;
+            let secsLeft = (secsA * 10) + secsB;
+            let timeLeft = minsLeft * 60 + secsLeft;
+            let alreadyRunning = false;
 
-    function startTimer() {
-        let minsLeft = (minsA * 10) + minsB;
-        let secsLeft = (secsA * 10) + secsB;
-        let timeLeft = minsLeft * 60 + secsLeft;
+            myCountdown = setInterval(() => {
+                if (!alreadyRunning) {
+                    countdown.classList.add('countdown-on');
+                    alreadyRunning = true;
+                }
+                if (timeLeft < 1) {
+                    clearInterval(myCountdown)
+                }
+                let countBuilder = "";
+                if (timeLeft / 60 < 1) {
+                    countBuilder = "00";
+                }
+                if (timeLeft / 60 < 10) {
+                    countBuilder = "0";
+                }
+                if (timeLeft % 60 < 10) {
+                    countBuilder += (Math.floor(timeLeft / 60)) + ":" + "0" + (timeLeft % 60);
+                } else {
+                    countBuilder += (Math.floor(timeLeft / 60)) + ":" + (timeLeft % 60);
+                }
+                countdown.textContent = countBuilder;
+                timeLeft--;
 
-        myCountdown = setInterval(() => {
-            if (timeLeft < 1) {
-                clearInterval(myCountdown)
-            }
-            let countBuilder = "";
-            if(timeLeft / 60 < 1) {
-                countBuilder = "00";
-            }
-            if(timeLeft/60 < 10){
-                countBuilder = "0";
-            }
-            if (timeLeft % 60 < 10) {
-                countBuilder += (Math.floor(timeLeft / 60)) + ":" + "0" + (timeLeft % 60);
-            } else {
-                countBuilder += (Math.floor(timeLeft / 60)) + ":" + (timeLeft % 60);
-            }
-
-            countdown.textContent = countBuilder;
-            timeLeft--;
-        }, 1000)
-
+            }, 1000)
+        } else if (e === "resetTimer") {
+            countdown.classList.remove('countdown-on');
+            clearInterval(myCountdown);
+            timeLeft = '';
+            setTimeout(function () {
+                countdown.textContent = ''
+            }, 2000)
+        }
     }
-
-    function reset() {
-        clearInterval(myCountdown);
-        timeLeft = 0;
-        countdown.textContent = '';
-    }
+    //TODO: first number(minutes) should only go up to 5
 
 </script>
 
@@ -117,7 +126,6 @@
         grid-template-rows: 50px 200px 50px;
         grid-gap: 10px;
         background-color: #C8C6C6;
-
     }
 
     .item {
@@ -133,6 +141,24 @@
 
     .plus-minus {
         font-size: 250%;
+    }
+
+    .countdown {
+        position: absolute;
+        background-color: blue;
+        font-size: 180px;
+        height: 320px;
+        width: 447px;
+        font-family: 'Arial';
+        opacity: 0;
+        visibility: hidden;
+        transition: all 1s;
+    }
+
+    .countdown-on {
+        opacity: 1;
+        visibility: visible;
+        transition: all 1s;
     }
 </style>
 
