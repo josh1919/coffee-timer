@@ -38,6 +38,8 @@
     const secB = document.querySelector('.num4');
     const countdown = document.querySelector('.countdown');
 
+    const rooster = new Audio('rooster.mp3');
+
     minA.innerHTML = minsA;
     minB.innerHTML = minsB;
     secA.innerHTML = secsA;
@@ -90,6 +92,7 @@
                 }
                 if (timeLeft < 1) {
                     clearInterval(myCountdown)
+                    rooster.play();
                 }
                 let countBuilder = "";
                 if (timeLeft / 60 < 1) {
@@ -116,6 +119,8 @@
             }, 2000)
         }
     }
+
+    //Rooster sound provided by http://www.freesfx.co.uk
 
 </script>
 
