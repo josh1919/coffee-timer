@@ -24,9 +24,10 @@
 .countdown {
     position: absolute;
     background-color: blue;
-    font-size: 180px;
+    font-size: 170px;
+    line-height: 350px;
     height: 320px;
-    width: 447px;
+    width: 430px;
     font-family: 'Arial';
     opacity: 0;
     visibility: hidden;
