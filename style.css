@@ -4,6 +4,7 @@
     grid-template-rows: 50px 200px 50px;
     grid-gap: 10px;
     background-color: #C8C6C6;
+    width:100%;
 }
 
 .item {
@@ -27,7 +28,7 @@
     font-size: 170px;
     line-height: 350px;
     height: 320px;
-    width: 430px;
+    width:  inherit;
     font-family: 'Arial';
     opacity: 0;
     visibility: hidden;
@@ -38,4 +39,8 @@
     opacity: 1;
     visibility: visible;
     transition: all 1s;
+}
+
+.wrapper{
+    width: 430px;
 }
